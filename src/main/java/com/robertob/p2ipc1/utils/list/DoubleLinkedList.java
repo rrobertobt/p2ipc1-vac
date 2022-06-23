@@ -1,7 +1,5 @@
 package com.robertob.p2ipc1.utils.list;
 
-import java.util.LinkedList;
-
 public class DoubleLinkedList<T> {
 
     private Node<T> first;
@@ -37,9 +35,91 @@ public class DoubleLinkedList<T> {
         
         if(index == 0){
             first = first.getNext();
+            if (first != null) {
+                first.setPrevious(null);
+            }
+        } else if (index == size - 1){
+            removeLast();
+        } else {
+            Node<T> actual = searchIndex(index);
+            Node<T> previous = actual.getPrevious();
+            Node<T> next = actual.getNext();
+
+            next.setPrevious(previous);
+            next.setNext(next);
+        }
+        size--;
+    
+    }
+
+    public void removeLast() throws DoubleLinkedListException {
+        if (isEmpty()) {
+            throw new DoubleLinkedListException("The list is empty");
+        } else if (size == 1){
+            first = null;
+            last = null;
+        } else {
+            Node<T> previous = last.getPrevious();
+            previous.setNext(null);
+            last = previous;
+        }
+        size--;
+    }
+    
+    public T get(int index) throws DoubleLinkedListException{
+        return searchIndex(index).getItem();
+    }
+    
+    public Node<T> searchIndex(int index) throws DoubleLinkedListException{
+        if (index >= size || index < 0) {
+            throw new DoubleLinkedListException("Index out of bounds");
+        }
+        
+        int half = size/2;
+        if (index <= half) {
+            return searchFirstToLast(index);
+        } else {
+            return searchLastToFirst(index);
+        }
+    }
+    
+    public Node<T> searchFirstToLast(int index) throws DoubleLinkedListException{
+        if (index >= size || index < 0) {
+            throw new DoubleLinkedListException("Index out of bounds");
+        }
+        
+        Node<T> actual = first;
+        for (int i = 0; i < index; i++) {
+            Node<T> next = actual.getNext();
+            actual = next;   
+        }
+        return actual;
+    }
+    
+    public Node<T> searchLastToFirst(int index) throws DoubleLinkedListException{
+        if (index >= size || index < 0) {
+            throw new DoubleLinkedListException("Index out of bounds");
+        }
+        
+        Node<T> actual = last;
+        for (int i = 0; i < index; i++) {
+            Node<T> previous = actual.getPrevious();
+            actual = previous;   
+        }
+        return actual;
+    }
+    
+    public void printList(){
+        if (!isEmpty()) {
+            Node<T> aux = first;
+            int i = 0;
             
+            while (aux != null) {                
+                System.out.print(".[ " + aux.getItem() + " ]");
+                aux = aux.getNext();
+                i++;
+            }
         }
     
     }
-    
 }
