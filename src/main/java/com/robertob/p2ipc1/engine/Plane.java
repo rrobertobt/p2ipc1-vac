@@ -11,7 +11,7 @@ public class Plane extends Thread{
     private LandingTrack curreLandingTrack;
     
     public enum PLANE_STATE{
-        FLYING, WAITING_LANDING, ON_TRACK, ON_DISEMBARK, ON_MAINTENANCE, CRASHED
+        FLYING, WAITING_FOR_TRACK, WAITING_LANDING, ON_TRACK, ON_DISEMBARK, ON_MAINTENANCE, CRASHED
     };
     
     private PLANE_STATE planeState;

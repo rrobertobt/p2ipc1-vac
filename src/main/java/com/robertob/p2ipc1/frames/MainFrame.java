@@ -265,8 +265,8 @@ public class MainFrame extends javax.swing.JFrame {
         return currentSimulation;
     }
 
-    void startSimulation() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void startSimulation() {
+        this.currentSimulation.startSimulation();
     }
 
     

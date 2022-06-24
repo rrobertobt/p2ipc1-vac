@@ -52,6 +52,19 @@ public class Simulation {
     public void setControlStations(DoubleLinkedList<ControlStation> controlStations) {
         this.controlStations = controlStations;
     }
+
+    public void setDisembarkStations(DoubleLinkedList<DisembarkStation> disembarkStations) {
+        this.disembarkStations = disembarkStations;
+    }
+
+    public void setMaintenanceStations(DoubleLinkedList<MaintenanceStation> maintenanceStations) {
+        this.maintenanceStations = maintenanceStations;
+    }
+
+    public void startSimulation() {
+        
+    }
+    
     
     
     

@@ -217,6 +217,27 @@ public class FileHandler {
     public String getMaintenanceStationsFileName() {
         return maintenanceStationsFileName;
     }
+
+    public DoubleLinkedList<Plane> getPlanes() {
+        return planes;
+    }
+
+    public DoubleLinkedList<LandingTrack> getLandingTracks() {
+        return landingTracks;
+    }
+
+    public DoubleLinkedList<ControlStation> getControlStations() {
+        return controlStations;
+    }
+
+    public DoubleLinkedList<DisembarkStation> getDisembarkStations() {
+        return disembarkStations;
+    }
+
+    public DoubleLinkedList<MaintenanceStation> getMaintenanceStations() {
+        return maintenanceStations;
+    }
         
+    
     
 }

@@ -430,6 +430,11 @@ public class LoadFilesDialog extends javax.swing.JDialog {
         if(!fileHandler.allFilesLoad()){
             JOptionPane.showMessageDialog(null, "Parece que no se han cargado correctamente todos los archivos, intente de nuevo", "Archivos no cargados", JOptionPane.ERROR_MESSAGE);
         } else {
+            mainFrame.getCurrentSimulation().setPlanes(fileHandler.getPlanes()); 
+            mainFrame.getCurrentSimulation().setLandingTracks(fileHandler.getLandingTracks());
+            mainFrame.getCurrentSimulation().setControlStations(fileHandler.getControlStations());
+            mainFrame.getCurrentSimulation().setDisembarkStations(fileHandler.getDisembarkStations());
+            mainFrame.getCurrentSimulation().setMaintenanceStations(fileHandler.getMaintenanceStations());
             mainFrame.startSimulation();
         
         }
