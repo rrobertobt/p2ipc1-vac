@@ -6,7 +6,6 @@ public class MaintenanceStation {
 
     private int id;
     private int maxPlanes;
-    private boolean isFree;
     private DoubleLinkedList<Plane> planesOnMaintenance = new DoubleLinkedList<>();
 
     private MaintenanceStation(int id, int maxPlanes) {
@@ -18,6 +17,9 @@ public class MaintenanceStation {
         this(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
     }
     
+    public boolean isAvailable(){
+        return maxPlanes != planesOnMaintenance.length();
+    }
     
     
 }

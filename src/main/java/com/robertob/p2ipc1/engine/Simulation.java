@@ -1,6 +1,7 @@
 package com.robertob.p2ipc1.engine;
 
 import com.robertob.p2ipc1.utils.list.DoubleLinkedList;
+import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
 
 public class Simulation {
     
@@ -27,6 +28,10 @@ public class Simulation {
         this.MAINTENANCE_TIME = MAINTENANCE_TIME;
         this.TAKE_OFF_TIME = TAKE_OFF_TIME;
     
+    }
+    
+    public void startSimulation() {
+        
     }
     
     public DoubleLinkedList<Plane> getPlanes() {
@@ -61,9 +66,69 @@ public class Simulation {
         this.maintenanceStations = maintenanceStations;
     }
 
-    public void startSimulation() {
-        
+    public DoubleLinkedList<DisembarkStation> getDisembarkStations() {
+        return disembarkStations;
     }
+
+    public DoubleLinkedList<MaintenanceStation> getMaintenanceStations() {
+        return maintenanceStations;
+    }
+
+    public int getCONSUME_FUEL_TIME() {
+        return CONSUME_FUEL_TIME;
+    }
+
+    public int getLANDING_TIME() {
+        return LANDING_TIME;
+    }
+
+    public int getDISEMBARKING_TIME() {
+        return DISEMBARKING_TIME;
+    }
+
+    public int getMAINTENANCE_TIME() {
+        return MAINTENANCE_TIME;
+    }
+
+    public int getTAKE_OFF_TIME() {
+        return TAKE_OFF_TIME;
+    }
+
+    public ControlStation searchAvailableTowerStation() throws DoubleLinkedListException {
+        ControlStation availableStation = null;
+        for (int i = 0; i < controlStations.length(); i++) {
+            if (controlStations.get(i).isAvailable()) {
+                availableStation = controlStations.get(i);
+                break;
+            }
+        }
+        return availableStation;
+    }
+    
+    public DisembarkStation searchAvailableDisembarkStation() throws DoubleLinkedListException{
+        DisembarkStation availableStation = null;
+        for (int i = 0; i < disembarkStations.length(); i++) {
+            if (disembarkStations.get(i).isAvailable()) {
+                availableStation = disembarkStations.get(i);
+                break;
+            }
+        }
+        return availableStation;
+    }
+    
+    public MaintenanceStation searchAvailableMaintenanceStation() throws DoubleLinkedListException{
+        MaintenanceStation avaliableStation = null;
+        for (int i = 0; i < maintenanceStations.length(); i++) {
+            if (maintenanceStations.get(i).isAvailable()) {
+                avaliableStation = maintenanceStations.get(i);
+                break;
+            }
+            
+        }
+        return avaliableStation;
+    }
+    
+    
     
     
     
