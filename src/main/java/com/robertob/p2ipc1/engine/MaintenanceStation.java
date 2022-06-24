@@ -8,4 +8,18 @@ public class MaintenanceStation {
     private int maxPlanes;
     private boolean isFree;
     private DoubleLinkedList<Plane> planesOnMaintenance = new DoubleLinkedList<>();
+
+    private MaintenanceStation(int id, int maxPlanes) {
+        this.id = id;
+        this.maxPlanes = maxPlanes;
+    }
+    
+    public MaintenanceStation(String[] params){
+        this(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
+    }
+    
+    
+    
 }
+
+

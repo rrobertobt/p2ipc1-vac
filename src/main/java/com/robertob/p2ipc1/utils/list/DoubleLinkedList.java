@@ -2,8 +2,8 @@ package com.robertob.p2ipc1.utils.list;
 
 public class DoubleLinkedList<T> {
 
-    private Node<T> first;
-    private Node<T> last;
+    private Node<T> first = null;
+    private Node<T> last = null;
     private int size = 0;
     
     public void add(T item){
@@ -66,6 +66,16 @@ public class DoubleLinkedList<T> {
         size--;
     }
     
+    public void removeAll(){
+        Node<T> aux = new Node<>(null);
+        while (first != null) {            
+            aux = first;
+            first = first.getNext();
+            aux = null;
+        }
+        size = 0;
+    }
+    
     public T get(int index) throws DoubleLinkedListException{
         return searchIndex(index).getItem();
     }
@@ -107,6 +117,14 @@ public class DoubleLinkedList<T> {
             actual = previous;   
         }
         return actual;
+    }
+
+    public T getFirst() {
+        return first.getItem();
+    }
+    
+    public Node<T> getFirstNode(){
+        return first;
     }
     
     public void printList(){

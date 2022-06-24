@@ -1,5 +1,6 @@
 package com.robertob.p2ipc1.frames;
 
+import com.robertob.p2ipc1.engine.Simulation;
 import com.robertob.p2ipc1.utils.list.FileHandler;
 import javax.swing.JOptionPane;
 
@@ -7,6 +8,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     String[] confirmationOptions = {"Si","No"};
     FileHandler fileHandler = new FileHandler();
+    LoadFilesDialog loadFilesDialog = new LoadFilesDialog(this, true, this);
+    Simulation currentSimulation;
+    
     
     /** Creates new form MainFrame */
     public MainFrame() {
@@ -29,6 +33,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -46,50 +52,73 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setText("Bienvenid@ al simulador de aereopuerto");
 
         jLabel2.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
-        jLabel2.setText("en formato .csv con los campos necesarios, o abra el archivo de una");
+        jLabel2.setText("\"Comenzar una nueva simulación\" desde el menu \"Simulación\",");
 
         jLabel3.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
-        jLabel3.setText("Para comenzar una simulación, cargue un archivo");
+        jLabel3.setText("Para comenzar una simulación, seleccione la opción:");
 
         jLabel4.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
-        jLabel4.setText("simulación previamente guardada desde el menú \"Simulación\"");
+        jLabel4.setText("configure los tiempos requeridos y luego cargue los archivos");
 
         jLabel5.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
-        jLabel5.setText("Luego configure los tiempos de las acciones en el menú \"Configurar\"");
+        jLabel5.setText("en formato .csv con los parametros requeridos.");
+
+        jLabel6.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
+        jLabel6.setText("O abra el archivo de una simulación previamente");
+
+        jLabel7.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
+        jLabel7.setText("guardada en el menú \"Simulación\"");
 
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                .addGap(0, 45, Short.MAX_VALUE)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel4))
+                    .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
                             .addComponent(jLabel3)
-                            .addComponent(jLabel1)))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(21, 21, 21)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                            .addGap(109, 109, 109))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(71, 71, 71)))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(118, 118, 118))
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addGap(178, 178, 178)
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jDesktopPane1.setLayer(jInternalFrame1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -101,14 +130,14 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(156, 156, 156)
                 .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(244, Short.MAX_VALUE))
+                .addContainerGap(477, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(104, 104, 104)
                 .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         jMenuBar1.setFont(new java.awt.Font("Open Sans", 1, 20)); // NOI18N
@@ -118,7 +147,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem3.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/robertob/p2ipc1/images/loadFileBlack.png"))); // NOI18N
-        jMenuItem3.setText(" Cargar archivos de simulacion");
+        jMenuItem3.setText(" Comenzar nueva simulación");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -129,6 +158,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem1.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         jMenuItem1.setText(" Abrir simulación guardada");
+        jMenuItem1.setEnabled(false);
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -193,6 +223,13 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        int confirmation = JOptionPane.showOptionDialog(this, "¿Comenzar nueva simulación? Toda la información no guardada se perderá", "Nueva simulación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,confirmationOptions,confirmationOptions[0]);
+            if(confirmation == JOptionPane.YES_OPTION){
+                currentSimulation = new Simulation();
+                SetTimesDialog setTimeDialog = new SetTimesDialog(this, true, this);
+                setTimeDialog.setVisible(true);
+            }
+        
         
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
@@ -208,6 +245,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -218,4 +257,17 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
+    public LoadFilesDialog getLoadFilesDialog() {
+        return loadFilesDialog;
+    }
+
+    public Simulation getCurrentSimulation() {
+        return currentSimulation;
+    }
+
+    void startSimulation() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    
 }

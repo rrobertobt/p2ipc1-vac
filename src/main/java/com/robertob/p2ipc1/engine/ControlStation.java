@@ -10,6 +10,18 @@ public class ControlStation {
     public boolean isAvailable(){
         return currentPlanes != maxPlanes;
     }
+
+    private ControlStation(int id, int maxPlanes) {
+        this.id = id;
+        this.maxPlanes = maxPlanes;
+    }
+
+    public ControlStation(String[] params) {
+        this(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
+    }
+    
+    
+    
     
     
 }
