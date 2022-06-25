@@ -16,7 +16,7 @@ public class Plane extends Thread{
     private MaintenanceStation currentMaintenanceStation;
     
     public enum PLANE_STATE{
-        FLYING, WAITING_FOR_TRACK, WAITING_LANDING, ON_TRACK, WAITING_DISEMBARK, ON_DISEMBARK, WAITING_MAINTENANCE, ON_MAINTENANCE, CRASHED
+        FLYING, WAITING_FOR_TRACK, WAITING_LANDING, ON_TRACK, WAITING_DISEMBARK, ON_DISEMBARK, WAITING_MAINTENANCE, ON_MAINTENANCE, WAITING_TAKEOFF_TRACK, WAITING_TAKEOFF, ON_TAKEOFF_TRACK, CRASHED
     };
     
     private PLANE_STATE planeState;
@@ -49,19 +49,20 @@ public class Plane extends Thread{
                 if (this.planeState != PLANE_STATE.ON_TRACK || 
                         this.planeState != PLANE_STATE.ON_DISEMBARK || 
                         this.planeState != PLANE_STATE.ON_MAINTENANCE ||
-                        this.planeState != PLANE_STATE.WAITING_DISEMBARK) {
+                        this.planeState != PLANE_STATE.WAITING_DISEMBARK ||
+                        this.planeState != PLANE_STATE.WAITING_MAINTENANCE) {
                     fly();
                 }
-                
-                if (this.planeState != PLANE_STATE.WAITING_LANDING) {
+                if (this.planeState != PLANE_STATE.WAITING_FOR_TRACK) {
                     ControlStation availableStation = currentSimulation.searchAvailableTowerStation();
-                    if (availableStation != null) {
-                        availableStation.planeLandingRequest(this);
+                    this.currentControlStation = availableStation;
+                    if (this.currentControlStation != null) {
+                        this.currentControlStation.planeLandingRequest(this);
                     }                    
                 }
-
                 if (this.planeState == PLANE_STATE.ON_TRACK) {
-                    sleep(3000);
+                    sleep(this.currentSimulation.getLANDING_TIME());
+                    this.currentControlStation = null;
                     DisembarkStation availableStation = currentSimulation.searchAvailableDisembarkStation();
                     if (availableStation != null) {
                         availableStation.planeDisembarkRequest(this);
@@ -69,18 +70,31 @@ public class Plane extends Thread{
                     }
                     
                 }
+                if (this.planeState == PLANE_STATE.WAITING_DISEMBARK) {
+                    this.currentDisembarkStation.askForDisembark(this);
+                }
                 if (this.planeState == PLANE_STATE.ON_DISEMBARK) {
                     sleep(this.currentSimulation.getDISEMBARKING_TIME()*passengers);
                     this.currentDisembarkStation.setCurrentPlane(null);
                     MaintenanceStation availableStation = currentSimulation.searchAvailableMaintenanceStation();
                     if (availableStation != null) {
-                        // pasar a estación de mantenimiento
+                        availableStation.planeMaintenanceRequest(this);
                     }
-                    
                 }
-                if (this.planeState == PLANE_STATE.WAITING_DISEMBARK) {
-                    this.currentDisembarkStation.askForDisembark(this);
+                if (this.planeState == PLANE_STATE.ON_MAINTENANCE){
+                    sleep(this.currentSimulation.getMAINTENANCE_TIME());
+                    ControlStation availableStation = currentSimulation.searchAvailableTowerStation();
+                    if (availableStation != null){
+                        availableStation.planeTakeOffRequest(this);
+                    }
                 }
+                if (this.planeState == PLANE_STATE.ON_TAKEOFF_TRACK) {
+                    sleep(this.currentSimulation.getTAKE_OFF_TIME());
+                    this.setPlaneState(PLANE_STATE.FLYING);
+                    this.currentLandingTrack.freeTrack();
+                }
+                
+                
                 // Comunicarse con una torre para solicitar pista para despegue
                 // Esperar pista asignada y autorizacion para despegar
                 

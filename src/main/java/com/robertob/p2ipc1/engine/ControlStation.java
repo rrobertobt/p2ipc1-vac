@@ -31,7 +31,7 @@ public class ControlStation {
             Actualizamos la UI para decirle al usuario que debe seleccionar
             una pista para el avion que se lo esta solicitando
             */
-            plane.setPlaneState(PLANE_STATE.WAITING_LANDING);
+            plane.setPlaneState(PLANE_STATE.WAITING_FOR_TRACK);
             return true;
         } else {
             return false;
@@ -39,7 +39,7 @@ public class ControlStation {
     }
     
     public void planeLandingAssignation(Plane plane, LandingTrack track) {
-        boolean planeAdded = track.addPlaneToTrack(plane);
+        boolean planeAdded = track.addLandingPlaneToTrack(plane);
         if (planeAdded) {
             plane.setCurrentLandingTrack(track);
             /*
@@ -61,7 +61,30 @@ public class ControlStation {
                 */
             }
         } catch (DoubleLinkedListException ex) {
-            
+        }
+    }
+
+    public boolean planeTakeOffRequest(Plane plane) {
+        if (isAvailable()) {
+            plane.setPlaneState(PLANE_STATE.WAITING_TAKEOFF_TRACK);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public void planeTakeOffAssignation(Plane plane, LandingTrack track){
+        boolean planeAdded = track.addTakeOffPlaneToTrack(plane);
+        if (planeAdded) {
+            plane.setCurrentLandingTrack(track);
+        }
+    }
+    
+    public void planeTakeOffApproval(Plane plane) throws DoubleLinkedListException{
+        if (plane.getCurrentLandingTrack().isFirstInLine(plane)) {
+            plane.setPlaneState(PLANE_STATE.ON_TAKEOFF_TRACK);
+            plane.getCurrentLandingTrack().setCurrentPlane(plane);
+            plane.getCurrentLandingTrack().getPlanesOnQueue().removeAtIndex(0);
         }
     }
 }

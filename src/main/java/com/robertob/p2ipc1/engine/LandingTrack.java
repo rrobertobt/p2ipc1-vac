@@ -28,11 +28,21 @@ public class LandingTrack {
         return planesOnQueue.length() == maxPlanes;
     }
     
-    public boolean addPlaneToTrack(Plane plane) {
+    public boolean addLandingPlaneToTrack(Plane plane) {
         if (isTrackFull()) {
             return false;
         } else {
-            plane.setPlaneState(Plane.PLANE_STATE.WAITING_FOR_TRACK);
+            plane.setPlaneState(Plane.PLANE_STATE.WAITING_LANDING);
+            planesOnQueue.add(plane);
+            return true;
+        }
+    }
+    
+    public boolean addTakeOffPlaneToTrack(Plane plane) {
+        if (isTrackFull()) {
+            return false;
+        } else {
+            plane.setPlaneState(Plane.PLANE_STATE.WAITING_TAKEOFF);
             planesOnQueue.add(plane);
             return true;
         }

@@ -34,6 +34,16 @@ public class MaintenanceStation {
             plane.setPlaneState(Plane.PLANE_STATE.WAITING_MAINTENANCE);
         }   
     }
+    
+    public void askForMaintenance(Plane plane) throws DoubleLinkedListException{
+        if (plane.getPlaneId() == planesOnMaintenanceQueue.get(0).getPlaneId()) {
+            if (currentPlane == null) {
+                currentPlane = planesOnMaintenanceQueue.get(0);
+                plane.setPlaneState(Plane.PLANE_STATE.ON_MAINTENANCE);
+                planesOnMaintenanceQueue.removeAtIndex(0);
+            }
+        }
+    }
 }
 
 
