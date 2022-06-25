@@ -23,12 +23,36 @@ public class DisembarkStation {
     
     public void planeDisembarkRequest(Plane plane) throws DoubleLinkedListException{
         planesOnDisembarkQueue.add(plane);
+        plane.setCurrentDisembarkStation(this);
         if (currentPlane == null) {
             currentPlane = planesOnDisembarkQueue.get(0);
+            plane.setPlaneState(Plane.PLANE_STATE.ON_DISEMBARK);
+            planesOnDisembarkQueue.removeAtIndex(0);
+        } else {
+            plane.setPlaneState(Plane.PLANE_STATE.WAITING_DISEMBARK);
         }
+    }
+    
+    public void askForDisembark(Plane plane) throws DoubleLinkedListException{
+        if (plane.getPlaneId() == planesOnDisembarkQueue.get(0).getPlaneId()){
+            if (currentPlane == null) {
+                currentPlane = planesOnDisembarkQueue.get(0);
+                plane.setPlaneState(Plane.PLANE_STATE.ON_DISEMBARK);
+                planesOnDisembarkQueue.removeAtIndex(0);
+            }
+        }
+        
     }
     
     public boolean isAvailable(){
         return planesOnDisembarkQueue.length() != maxPlanes;
     }
+
+    public void setCurrentPlane(Plane currentPlane) {
+        this.currentPlane = currentPlane;
+    }
+    
+    
+    
 }
+

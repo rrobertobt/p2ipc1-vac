@@ -54,6 +54,7 @@ public class ControlStation {
             if (plane.getCurrentLandingTrack().isFirstInLine(plane)) {
                 plane.setPlaneState(PLANE_STATE.ON_TRACK);
                 plane.getCurrentLandingTrack().setCurrentPlane(plane);
+                plane.getCurrentLandingTrack().getPlanesOnQueue().removeAtIndex(0);
                 /*
                 Actualizar la UI con la lista de aviones y sus estados actuales
                 y las pistas

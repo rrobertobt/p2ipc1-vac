@@ -1,12 +1,15 @@
 package com.robertob.p2ipc1.engine;
 
 import com.robertob.p2ipc1.utils.list.DoubleLinkedList;
+import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
 
 public class MaintenanceStation {
 
     private int id;
     private int maxPlanes;
-    private DoubleLinkedList<Plane> planesOnMaintenance = new DoubleLinkedList<>();
+    private Simulation currentSimulation;
+    private Plane currentPlane;
+    private DoubleLinkedList<Plane> planesOnMaintenanceQueue = new DoubleLinkedList<>();
 
     private MaintenanceStation(int id, int maxPlanes) {
         this.id = id;
@@ -18,10 +21,19 @@ public class MaintenanceStation {
     }
     
     public boolean isAvailable(){
-        return maxPlanes != planesOnMaintenance.length();
+        return maxPlanes != planesOnMaintenanceQueue.length();
     }
     
-    
+    public void planeMaintenanceRequest(Plane plane) throws DoubleLinkedListException{
+        planesOnMaintenanceQueue.add(plane);
+        plane.setCurrentMaintenanceStation(this);
+        if (currentPlane == null) {
+            currentPlane = planesOnMaintenanceQueue.get(0);
+            plane.setPlaneState(Plane.PLANE_STATE.ON_MAINTENANCE);
+        } else {
+            plane.setPlaneState(Plane.PLANE_STATE.WAITING_MAINTENANCE);
+        }   
+    }
 }
 
 

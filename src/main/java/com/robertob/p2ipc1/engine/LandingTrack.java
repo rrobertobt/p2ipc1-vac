@@ -41,4 +41,12 @@ public class LandingTrack {
     public boolean isFirstInLine(Plane plane) throws DoubleLinkedListException {
         return planesOnQueue.get(0).getPlaneId() == plane.getPlaneId();
     }
+
+    public void freeTrack(){
+        currentPlane = null;
+    }
+    
+    public DoubleLinkedList<Plane> getPlanesOnQueue() {
+        return planesOnQueue;
+    }
 }
