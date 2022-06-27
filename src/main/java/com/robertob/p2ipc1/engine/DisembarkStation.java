@@ -5,7 +5,7 @@ import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
 
 public class DisembarkStation {
 
-    private int id;
+    private int id = 0;
     private int maxPlanes;
     private Simulation currentSimulation;
     private Plane currentPlane;
@@ -42,6 +42,12 @@ public class DisembarkStation {
             }
         }
         
+    }
+    
+    public String[] toTableFormat(){
+        String currentId = this.id == 0 ? "" : String.valueOf(this.id);
+        String planeId = this.currentPlane == null ? "" : String.valueOf(this.currentPlane.getPlaneId());
+        return new String[]{currentId,planeId};
     }
     
     public boolean isAvailable(){

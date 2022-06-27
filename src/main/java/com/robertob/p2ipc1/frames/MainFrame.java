@@ -4,14 +4,19 @@ import com.robertob.p2ipc1.engine.Simulation;
 import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
 import com.robertob.p2ipc1.utils.list.DoubleLinkedList;
 import com.robertob.p2ipc1.utils.list.FileHandler;
+import java.awt.BorderLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame implements Runnable{
 
     String[] confirmationOptions = {"Si","No"};
     FileHandler fileHandler = new FileHandler();
     LoadFilesDialog loadFilesDialog = new LoadFilesDialog(this, false, this);
     Simulation currentSimulation;
+    Thread mfThread;
     
     //InternalFrames
     PlanesInternalFrame planesInternalFrame = new PlanesInternalFrame();
@@ -22,9 +27,25 @@ public class MainFrame extends javax.swing.JFrame {
     
     /** Creates new form MainFrame */
     public MainFrame() {
+        mfThread = new Thread(this);
         initComponents();
     }
 
+    @Override
+    public void run() {
+        while (true) {            
+            try {
+                Thread.sleep(500);
+                updateInternalFramesData();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DoubleLinkedListException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    }
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -44,13 +65,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        idTextField = new javax.swing.JTextField();
-        showControlStationByIdBtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -152,84 +166,17 @@ public class MainFrame extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addGap(415, 415, 415)
                 .addComponent(welcomeIFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(496, Short.MAX_VALUE))
+                .addGap(682, 682, 682))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
+                .addGap(119, 119, 119)
                 .addComponent(welcomeIFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
-        );
-
-        jLabel8.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
-        jLabel8.setText("Mostrar");
-
-        jLabel9.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
-        jLabel9.setText("estación de");
-
-        jLabel10.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
-        jLabel10.setText("control con");
-
-        jLabel11.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
-        jLabel11.setText("ID:");
-
-        idTextField.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
-        idTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        idTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idTextFieldActionPerformed(evt);
-            }
-        });
-
-        showControlStationByIdBtn.setBackground(new java.awt.Color(153, 204, 255));
-        showControlStationByIdBtn.setFont(new java.awt.Font("Open Sans", 1, 15)); // NOI18N
-        showControlStationByIdBtn.setForeground(new java.awt.Color(51, 51, 51));
-        showControlStationByIdBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/robertob/p2ipc1/images/informationIconBlack.png"))); // NOI18N
-        showControlStationByIdBtn.setText(" Mostrar");
-        showControlStationByIdBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        showControlStationByIdBtn.setEnabled(false);
-        showControlStationByIdBtn.setMargin(new java.awt.Insets(2, 4, 2, 4));
-        showControlStationByIdBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showControlStationByIdBtnActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(idTextField)
-                    .addComponent(showControlStationByIdBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(showControlStationByIdBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(172, 172, 172))
         );
 
         jMenuBar1.setFont(new java.awt.Font("Open Sans", 1, 20)); // NOI18N
@@ -293,15 +240,13 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jDesktopPane1))
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jDesktopPane1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -332,19 +277,6 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void idTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idTextFieldActionPerformed
-
-    private void showControlStationByIdBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showControlStationByIdBtnActionPerformed
-        int idToShow;
-        try {
-            idToShow = Integer.parseInt(idTextField.getText());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Porfavor ingresa un ID valido", "Valor no valido", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_showControlStationByIdBtnActionPerformed
-
     public LoadFilesDialog getLoadFilesDialog() {
         return loadFilesDialog;
     }
@@ -356,24 +288,10 @@ public class MainFrame extends javax.swing.JFrame {
     public void startSimulation() throws DoubleLinkedListException {
         this.welcomeIFrame.dispose();
         this.currentSimulation.prepareSimulation();
+        this.currentSimulation.startThreads();
         showInternalFrames();
         updateInternalFramesData();
-        showControlStationByIdBtn.setEnabled(true);
-        
-//        for (int i = 0; i < this.currentSimulation.getControlStations().length(); i++) {
-//            System.out.println(this.currentSimulation.getControlStations().get(i).getId());
-//        }
-        for (int i = 0; i < this.currentSimulation.getControlStations().length(); i++) {
-            ControlStationInternalFrame controlStationInternalFrame = new ControlStationInternalFrame(this.currentSimulation.getControlStations().get(i));
-            this.controlStationsInternalFrame.add(controlStationInternalFrame);
-            ControlStationInternalFrame interframe = this.controlStationsInternalFrame.get(i);
-            this.jDesktopPane1.add(interframe);
-        }
-        
-        for (int i = 0; i < this.controlStationsInternalFrame.length(); i++) {  
-            this.controlStationsInternalFrame.get(i).setVisible(true);
-        }
-        
+        mfThread.start();
     }
 
     public void showInternalFrames() throws DoubleLinkedListException{
@@ -385,18 +303,42 @@ public class MainFrame extends javax.swing.JFrame {
         disembarkingStationsInternalFrame.setVisible(true);
         this.jDesktopPane1.add(maintenanceStationsInternalFrame);
         maintenanceStationsInternalFrame.setVisible(true);
+        
+        for (int i = 0; i < this.currentSimulation.getControlStations().length(); i++) {
+            ControlStationInternalFrame controlStationInternalFrame = new ControlStationInternalFrame(this.currentSimulation.getControlStations().get(i));
+            this.controlStationsInternalFrame.add(controlStationInternalFrame);
+            ControlStationInternalFrame interframe = this.controlStationsInternalFrame.get(i);
+            this.jDesktopPane1.add(interframe);
+        }
+        
+        for (int i = 0; i < this.controlStationsInternalFrame.length(); i++) {  
+            this.controlStationsInternalFrame.get(i).setVisible(true);
+        }
     }
     
-    public void updateInternalFramesData(){
-        System.out.println("TODO");
+    public void updateInternalFramesData() throws DoubleLinkedListException{
+        DefaultTableModel planeTableModel = (DefaultTableModel)this.planesInternalFrame.getPlanesTable().getModel();
+        planeTableModel.setRowCount(0);
+        for (int i = 0; i < this.currentSimulation.getPlanes().length(); i++) {
+            planeTableModel.addRow(this.currentSimulation.getPlanes().get(i).toTableFormat());   
+        }
+        
+        DefaultTableModel disembarkStationTableModel = (DefaultTableModel)this.disembarkingStationsInternalFrame.getDisembarkStationsTable().getModel();
+        disembarkStationTableModel.setRowCount(0);
+        for (int i = 0; i < this.currentSimulation.getDisembarkStations().length(); i++) {
+            disembarkStationTableModel.addRow(this.currentSimulation.getDisembarkStations().get(i).toTableFormat());   
+        }
+
+        DefaultTableModel maintenanceStationTableModel = (DefaultTableModel)this.maintenanceStationsInternalFrame.getMaintenanceStationsTable().getModel();
+        maintenanceStationTableModel.setRowCount(0);
+        for (int i = 0; i < this.currentSimulation.getMaintenanceStations().length(); i++) {
+            maintenanceStationTableModel.addRow(this.currentSimulation.getMaintenanceStations().get(i).toTableFormat());   
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField idTextField;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -404,8 +346,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -413,9 +353,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JButton showControlStationByIdBtn;
     private javax.swing.JInternalFrame welcomeIFrame;
     // End of variables declaration//GEN-END:variables
+
+
 }

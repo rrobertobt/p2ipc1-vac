@@ -4,6 +4,8 @@
  */
 package com.robertob.p2ipc1.frames;
 
+import javax.swing.JTable;
+
 /**
  *
  * @author robertob
@@ -17,6 +19,8 @@ public class DisembarkingStationsInternalFrame extends javax.swing.JInternalFram
         initComponents();
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,36 +33,36 @@ public class DisembarkingStationsInternalFrame extends javax.swing.JInternalFram
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        disembarkStationsTable = new javax.swing.JTable();
 
         setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Open Sans", 1, 21)); // NOI18N
         jLabel1.setText("ESTACIONES DE DESABORDAJE");
 
-        jTable1.setFont(new java.awt.Font("Noto Serif", 0, 20)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        disembarkStationsTable.setFont(new java.awt.Font("Noto Serif", 0, 20)); // NOI18N
+        disembarkStationsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "ID", "Estado", "Pista", "Torre", "Combustible"
+                "ID", "ID Avion"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setRowHeight(50);
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        disembarkStationsTable.setRowHeight(50);
+        disembarkStationsTable.setShowGrid(true);
+        jScrollPane1.setViewportView(disembarkStationsTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,11 +94,15 @@ public class DisembarkingStationsInternalFrame extends javax.swing.JInternalFram
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    public JTable getDisembarkStationsTable() {
+        return disembarkStationsTable;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable disembarkStationsTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

@@ -69,18 +69,15 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="disembarkStationsTable">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Noto Serif" size="20" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="5" rowCount="4">
+              <Table columnCount="2" rowCount="4">
                 <Column editable="false" title="ID" type="java.lang.Object"/>
-                <Column editable="false" title="Estado" type="java.lang.Object"/>
-                <Column editable="false" title="Pista" type="java.lang.Object"/>
-                <Column editable="false" title="Torre" type="java.lang.Object"/>
-                <Column editable="false" title="Combustible" type="java.lang.Object"/>
+                <Column editable="false" title="ID Avion" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="rowHeight" type="int" value="50"/>

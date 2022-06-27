@@ -16,6 +16,10 @@ public class LandingTrack {
         this.maxPlanes = maxPlanes;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public LandingTrack(String[] params) {
         this(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
     }

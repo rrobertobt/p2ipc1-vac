@@ -25,7 +25,7 @@ public class ControlStation {
         this(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
     }
     
-    public boolean planeLandingRequest(Plane plane) {
+    public synchronized boolean planeLandingRequest(Plane plane) {
         if (isAvailable()) {
             /*
             Actualizamos la UI para decirle al usuario que debe seleccionar
@@ -38,7 +38,7 @@ public class ControlStation {
         }
     }
     
-    public void planeLandingAssignation(Plane plane, LandingTrack track) {
+    public synchronized void planeLandingAssignation(Plane plane, LandingTrack track) {
         boolean planeAdded = track.addLandingPlaneToTrack(plane);
         if (planeAdded) {
             plane.setCurrentLandingTrack(track);
@@ -49,7 +49,7 @@ public class ControlStation {
         }
     }
     
-    public void planeLandingApproval(Plane plane) {
+    public synchronized void planeLandingApproval(Plane plane) {
         try {
             if (plane.getCurrentLandingTrack().isFirstInLine(plane)) {
                 plane.setPlaneState(PLANE_STATE.ON_TRACK);
@@ -64,7 +64,7 @@ public class ControlStation {
         }
     }
 
-    public boolean planeTakeOffRequest(Plane plane) {
+    public synchronized boolean planeTakeOffRequest(Plane plane) {
         if (isAvailable()) {
             plane.setPlaneState(PLANE_STATE.WAITING_TAKEOFF_TRACK);
             return true;
@@ -73,14 +73,14 @@ public class ControlStation {
         }
     }
     
-    public void planeTakeOffAssignation(Plane plane, LandingTrack track){
+    public synchronized void planeTakeOffAssignation(Plane plane, LandingTrack track){
         boolean planeAdded = track.addTakeOffPlaneToTrack(plane);
         if (planeAdded) {
             plane.setCurrentLandingTrack(track);
         }
     }
     
-    public void planeTakeOffApproval(Plane plane) throws DoubleLinkedListException{
+    public synchronized void planeTakeOffApproval(Plane plane) throws DoubleLinkedListException{
         if (plane.getCurrentLandingTrack().isFirstInLine(plane)) {
             plane.setPlaneState(PLANE_STATE.ON_TAKEOFF_TRACK);
             plane.getCurrentLandingTrack().setCurrentPlane(plane);

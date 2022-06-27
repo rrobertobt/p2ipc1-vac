@@ -4,6 +4,8 @@
  */
 package com.robertob.p2ipc1.frames;
 
+import javax.swing.JTable;
+
 /**
  *
  * @author robertob
@@ -28,7 +30,7 @@ public class MaintenanceStationsInternalFrame extends javax.swing.JInternalFrame
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        maintenanceStationsTable = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
 
         setResizable(true);
@@ -39,29 +41,29 @@ public class MaintenanceStationsInternalFrame extends javax.swing.JInternalFrame
 
         jScrollPane1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        maintenanceStationsTable.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        maintenanceStationsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "ID", "Estado", "Pista", "Torre", "Combustible"
+                "ID", "ID Avion"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setRowHeight(50);
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        maintenanceStationsTable.setRowHeight(50);
+        maintenanceStationsTable.setShowGrid(true);
+        jScrollPane1.setViewportView(maintenanceStationsTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,11 +95,14 @@ public class MaintenanceStationsInternalFrame extends javax.swing.JInternalFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JTable getMaintenanceStationsTable() {
+        return maintenanceStationsTable;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable maintenanceStationsTable;
     // End of variables declaration//GEN-END:variables
 }

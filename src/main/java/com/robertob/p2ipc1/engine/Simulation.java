@@ -1,5 +1,6 @@
 package com.robertob.p2ipc1.engine;
 
+import com.robertob.p2ipc1.frames.MainFrame;
 import com.robertob.p2ipc1.utils.list.DoubleLinkedList;
 import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
 
@@ -32,6 +33,12 @@ public class Simulation {
     
     public void prepareSimulation() throws DoubleLinkedListException {
         setSimulationToElements();
+    }
+    
+    public void startThreads() throws DoubleLinkedListException {
+        for (int i = 0; i < planes.length(); i++) {
+            planes.get(i).start();   
+        }
     }
     
     public void setSimulationToElements() throws DoubleLinkedListException {

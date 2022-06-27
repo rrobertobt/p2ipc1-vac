@@ -1,6 +1,7 @@
 package com.robertob.p2ipc1.engine;
 
 import java.util.Random;
+import javax.swing.text.html.HTML;
 
 public class Plane extends Thread{
 
@@ -44,6 +45,7 @@ public class Plane extends Thread{
 
     @Override
     public void run(){
+        this.planeState = PLANE_STATE.FLYING;
         try {
             while (planeState != PLANE_STATE.CRASHED) {
                 if (this.planeState != PLANE_STATE.ON_TRACK || 
@@ -92,12 +94,7 @@ public class Plane extends Thread{
                     sleep(this.currentSimulation.getTAKE_OFF_TIME());
                     this.setPlaneState(PLANE_STATE.FLYING);
                     this.currentLandingTrack.freeTrack();
-                }
-                
-                
-                // Comunicarse con una torre para solicitar pista para despegue
-                // Esperar pista asignada y autorizacion para despegar
-                
+                }              
             }
         } catch (Exception e) {
             // Actualizar la UI porque hubo un error
@@ -108,6 +105,28 @@ public class Plane extends Thread{
         sleep(this.currentSimulation.getCONSUME_FUEL_TIME());
         this.fuel--;
     
+    }
+    
+    public String[] toTableFormat() {
+        String id = null, state = null, track = null, controlStation = null, fuel = null;
+        id = String.valueOf(this.planeId);
+        fuel = String.valueOf(this.fuel);
+        if (this.currentLandingTrack != null) {track = String.valueOf(this.currentLandingTrack.getId());} else {controlStation = "Ninguno";}
+        if (this.currentControlStation != null) {controlStation = String.valueOf(this.currentControlStation.getId());} else {track = "Ninguno";}
+        
+        if (planeState == PLANE_STATE.CRASHED) {state = "Estrellado";}
+        else if (planeState == PLANE_STATE.FLYING){state = "Volando";}
+        else if (planeState == PLANE_STATE.ON_DISEMBARK){state = "Desabordando";}
+        else if (planeState == PLANE_STATE.ON_MAINTENANCE){state = "Mantenimiento";}
+        else if (planeState == PLANE_STATE.ON_TAKEOFF_TRACK){state = "En pista";}
+        else if (planeState == PLANE_STATE.ON_TRACK){state = "En pista";}
+        else if (planeState == PLANE_STATE.WAITING_DISEMBARK){state = "Esperando desabordaje";}
+        else if (planeState == PLANE_STATE.WAITING_FOR_TRACK){state = "Esperando pista";}
+        else if (planeState == PLANE_STATE.WAITING_LANDING){state = "Esperando aterrizaje";}
+        else if (planeState == PLANE_STATE.WAITING_MAINTENANCE){state = "Esperando mantenimiento";}
+        else if (planeState == PLANE_STATE.WAITING_TAKEOFF){state = "Esperando despegue";}
+        else if (planeState == PLANE_STATE.WAITING_TAKEOFF_TRACK){state = "Esperando pista";}
+        return new String[]{id, state, track, controlStation, fuel};
     }
 
     public void setCurrentSimulation(Simulation currentSimulation) {

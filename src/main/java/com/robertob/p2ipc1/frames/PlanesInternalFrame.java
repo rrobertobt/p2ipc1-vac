@@ -4,6 +4,8 @@
  */
 package com.robertob.p2ipc1.frames;
 
+import javax.swing.JTable;
+
 /**
  *
  * @author robertob
@@ -29,7 +31,7 @@ public class PlanesInternalFrame extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        planesTable = new javax.swing.JTable();
 
         setResizable(true);
         setTitle("Aviones");
@@ -37,8 +39,8 @@ public class PlanesInternalFrame extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Open Sans", 1, 21)); // NOI18N
         jLabel1.setText("AVIONES");
 
-        jTable1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        planesTable.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+        planesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -57,23 +59,20 @@ public class PlanesInternalFrame extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setRowHeight(50);
-        jTable1.setRowSelectionAllowed(false);
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        planesTable.setRowHeight(50);
+        planesTable.setRowSelectionAllowed(false);
+        planesTable.setShowGrid(true);
+        jScrollPane1.setViewportView(planesTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(197, 197, 197)
@@ -95,11 +94,14 @@ public class PlanesInternalFrame extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JTable getPlanesTable(){
+        return planesTable;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable planesTable;
     // End of variables declaration//GEN-END:variables
 }
