@@ -4,6 +4,7 @@
  */
 package com.robertob.p2ipc1.frames;
 import com.robertob.p2ipc1.engine.*;
+import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
 
 /**
  *
@@ -12,9 +13,11 @@ import com.robertob.p2ipc1.engine.*;
 public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
 
     ControlStation frameControlStation;
+    Simulation currentSimulation;
     
-    public ControlStationInternalFrame(ControlStation frameControlStation) {
+    public ControlStationInternalFrame(ControlStation frameControlStation, Simulation currentSimulation) {
         this.frameControlStation = frameControlStation;
+        this.currentSimulation = currentSimulation;
         initComponents();
     }
 
@@ -36,13 +39,14 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        currentPlanesLbl = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        conectedPlanesLbl = new javax.swing.JLabel();
+        maxPlanesLbl = new javax.swing.JLabel();
+        planeIdComboBox = new javax.swing.JComboBox<>();
+        trackIdComboBox = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        updateComboBoxes = new javax.swing.JButton();
 
         setResizable(true);
 
@@ -69,11 +73,11 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         jLabel6.setText("Maxima capacidad de esta torre:");
 
-        currentPlanesLbl.setFont(new java.awt.Font("Open Sans", 1, 16)); // NOI18N
-        currentPlanesLbl.setText("9999");
+        conectedPlanesLbl.setFont(new java.awt.Font("Open Sans", 1, 16)); // NOI18N
+        conectedPlanesLbl.setText("9999");
 
-        jLabel8.setFont(new java.awt.Font("Open Sans", 1, 16)); // NOI18N
-        jLabel8.setText("9999");
+        maxPlanesLbl.setFont(new java.awt.Font("Open Sans", 1, 16)); // NOI18N
+        maxPlanesLbl.setText("9999");
 
         jLabel7.setFont(new java.awt.Font("Open Sans", 2, 14)); // NOI18N
         jLabel7.setText("#ID Avión");
@@ -87,6 +91,18 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/robertob/p2ipc1/images/changeBlack.png"))); // NOI18N
         jButton1.setText("Asignar");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        updateComboBoxes.setBackground(new java.awt.Color(255, 204, 204));
+        updateComboBoxes.setFont(new java.awt.Font("Open Sans", 1, 13)); // NOI18N
+        updateComboBoxes.setForeground(new java.awt.Color(51, 51, 51));
+        updateComboBoxes.setText("Actualizar");
+        updateComboBoxes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        updateComboBoxes.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        updateComboBoxes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateComboBoxesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,12 +120,13 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel7)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(planeIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(trackIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateComboBoxes, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,11 +141,11 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(currentPlanesLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(conectedPlanesLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(maxPlanesLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
@@ -145,42 +162,64 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(currentPlanesLbl))
+                    .addComponent(conectedPlanesLbl))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel8))
+                    .addComponent(maxPlanesLbl))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(updateComboBoxes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(planeIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(trackIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
                         .addGap(26, 26, 26)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void updateComboBoxesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateComboBoxesActionPerformed
+        planeIdComboBox.removeAllItems();
+        trackIdComboBox.removeAllItems();
+        try {
+            for (int i = 0; i < frameControlStation.getPlanesOnControlStation().length(); i++) {
+            planeIdComboBox.addItem(String.valueOf(frameControlStation.getPlanesOnControlStation().get(i).getPlaneId()));
+            }
+            for (int i = 0; i < currentSimulation.getLandingTracks().length(); i++) {
+                trackIdComboBox.addItem(String.valueOf(currentSimulation.getLandingTracks().get(i).getId()));
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_updateComboBoxesActionPerformed
+
+    public void updateControlStationFrame() throws DoubleLinkedListException {
+        // Actualiza cantidad de aviones conectados y maximos
+        conectedPlanesLbl.setText(String.valueOf(frameControlStation.getConectedPlanes()));
+        maxPlanesLbl.setText(String.valueOf(frameControlStation.getMaxPlanes()));
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel currentPlanesLbl;
+    private javax.swing.JLabel conectedPlanesLbl;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -188,10 +227,13 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel maxPlanesLbl;
+    private javax.swing.JComboBox<String> planeIdComboBox;
+    private javax.swing.JComboBox<String> trackIdComboBox;
+    private javax.swing.JButton updateComboBoxes;
     // End of variables declaration//GEN-END:variables
 }

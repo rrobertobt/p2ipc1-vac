@@ -167,17 +167,19 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(415, 415, 415)
+                .addGap(481, 481, 481)
                 .addComponent(welcomeIFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(682, 682, 682))
+                .addContainerGap(709, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(welcomeIFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(172, 172, 172))
+                .addGap(312, 312, 312))
         );
+
+        getContentPane().add(jDesktopPane1, java.awt.BorderLayout.CENTER);
 
         jMenuBar1.setFont(new java.awt.Font("Open Sans", 1, 20)); // NOI18N
 
@@ -236,19 +238,6 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -305,7 +294,7 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
         maintenanceStationsInternalFrame.setVisible(true);
         
         for (int i = 0; i < this.currentSimulation.getControlStations().length(); i++) {
-            ControlStationInternalFrame controlStationInternalFrame = new ControlStationInternalFrame(this.currentSimulation.getControlStations().get(i));
+            ControlStationInternalFrame controlStationInternalFrame = new ControlStationInternalFrame(this.currentSimulation.getControlStations().get(i), currentSimulation);
             this.controlStationsInternalFrame.add(controlStationInternalFrame);
             ControlStationInternalFrame interframe = this.controlStationsInternalFrame.get(i);
             this.jDesktopPane1.add(interframe);
@@ -333,6 +322,10 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
         maintenanceStationTableModel.setRowCount(0);
         for (int i = 0; i < this.currentSimulation.getMaintenanceStations().length(); i++) {
             maintenanceStationTableModel.addRow(this.currentSimulation.getMaintenanceStations().get(i).toTableFormat());   
+        }
+        
+        for (int i = 0; i < this.controlStationsInternalFrame.length(); i++) {  
+            controlStationsInternalFrame.get(i).updateControlStationFrame();
         }
     }
     

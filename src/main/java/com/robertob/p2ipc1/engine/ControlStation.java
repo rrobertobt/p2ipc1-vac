@@ -2,6 +2,7 @@ package com.robertob.p2ipc1.engine;
 
 import com.robertob.p2ipc1.engine.Plane.PLANE_STATE;
 import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
+import com.robertob.p2ipc1.utils.list.DoubleLinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,10 +11,11 @@ public class ControlStation {
     private int id;
     private Simulation currentSimulation;
     private int maxPlanes;
-    private int currentPlanes;
+    private DoubleLinkedList<Plane> planesOnControlStation = new DoubleLinkedList<>();
+    
     
     public boolean isAvailable(){
-        return currentPlanes != maxPlanes;
+        return planesOnControlStation.length() != maxPlanes;
     }
 
     private ControlStation(int id, int maxPlanes) {
@@ -32,6 +34,7 @@ public class ControlStation {
             una pista para el avion que se lo esta solicitando
             */
             plane.setPlaneState(PLANE_STATE.WAITING_FOR_TRACK);
+            planesOnControlStation.add(plane);
             return true;
         } else {
             return false;
@@ -94,6 +97,18 @@ public class ControlStation {
 
     public int getId() {
         return id;
+    }
+
+    public int getMaxPlanes() {
+        return maxPlanes;
+    }
+
+    public int getConectedPlanes() {
+        return planesOnControlStation.length();
+    }
+
+    public DoubleLinkedList<Plane> getPlanesOnControlStation() {
+        return planesOnControlStation;
     }
     
 }
