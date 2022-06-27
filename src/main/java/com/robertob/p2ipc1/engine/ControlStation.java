@@ -5,6 +5,7 @@ import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
 import com.robertob.p2ipc1.utils.list.DoubleLinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class ControlStation {
 
@@ -62,6 +63,8 @@ public class ControlStation {
                 Actualizar la UI con la lista de aviones y sus estados actuales
                 y las pistas
                 */
+            } else {
+                JOptionPane.showMessageDialog(null, "El avión elegido no es el primero en la cola", "Avión equivocado", JOptionPane.ERROR_MESSAGE);
             }
         } catch (DoubleLinkedListException ex) {
         }

@@ -55,7 +55,12 @@ public class Plane extends Thread{
                         this.planeState != PLANE_STATE.WAITING_MAINTENANCE) {
                     fly();
                 }
-                if (this.planeState != PLANE_STATE.WAITING_FOR_TRACK) {
+                if (this.planeState != PLANE_STATE.WAITING_FOR_TRACK &&
+                        this.planeState != PLANE_STATE.WAITING_LANDING && 
+                        this.planeState != PLANE_STATE.ON_TRACK &&
+                        this.planeState != PLANE_STATE.ON_DISEMBARK &&
+                        this.planeState != PLANE_STATE.ON_MAINTENANCE
+                    ) {
                     ControlStation availableStation = currentSimulation.searchAvailableTowerStation();
                     this.currentControlStation = availableStation;
                     if (this.currentControlStation != null) {
@@ -93,6 +98,7 @@ public class Plane extends Thread{
                 if (this.planeState == PLANE_STATE.ON_TAKEOFF_TRACK) {
                     sleep(this.currentSimulation.getTAKE_OFF_TIME());
                     this.setPlaneState(PLANE_STATE.FLYING);
+                    this.fuel = this.maxFuel;
                     this.currentLandingTrack.freeTrack();
                 }              
             }
@@ -102,9 +108,12 @@ public class Plane extends Thread{
     }
     
     public void fly() throws InterruptedException{
-        sleep(this.currentSimulation.getCONSUME_FUEL_TIME());
-        this.fuel--;
-    
+        if (fuel == 0) {
+            this.planeState = PLANE_STATE.CRASHED;
+        } else {
+            sleep(this.currentSimulation.getCONSUME_FUEL_TIME());
+            this.fuel--;
+        }
     }
     
     public String[] toTableFormat() {
@@ -128,6 +137,24 @@ public class Plane extends Thread{
         else if (planeState == PLANE_STATE.WAITING_TAKEOFF_TRACK){state = "Esperando pista";}
         return new String[]{id, state, track, controlStation, fuel};
     }
+    
+    public String[] toAlternateTableFormat(){
+        String id = null, state = null;
+        id = String.valueOf(this.planeId);
+        if (planeState == PLANE_STATE.CRASHED) {state = "Estrellado";}
+        else if (planeState == PLANE_STATE.FLYING){state = "Volando";}
+        else if (planeState == PLANE_STATE.ON_DISEMBARK){state = "Desabordando";}
+        else if (planeState == PLANE_STATE.ON_MAINTENANCE){state = "Mantenimiento";}
+        else if (planeState == PLANE_STATE.ON_TAKEOFF_TRACK){state = "En pista";}
+        else if (planeState == PLANE_STATE.ON_TRACK){state = "En pista";}
+        else if (planeState == PLANE_STATE.WAITING_DISEMBARK){state = "Esperando desabordaje";}
+        else if (planeState == PLANE_STATE.WAITING_FOR_TRACK){state = "Esperando pista";}
+        else if (planeState == PLANE_STATE.WAITING_LANDING){state = "Esperando aterrizaje";}
+        else if (planeState == PLANE_STATE.WAITING_MAINTENANCE){state = "Esperando mantenimiento";}
+        else if (planeState == PLANE_STATE.WAITING_TAKEOFF){state = "Esperando despegue";}
+        else if (planeState == PLANE_STATE.WAITING_TAKEOFF_TRACK){state = "Esperando pista";}
+        return new String[]{id, state};
+    }
 
     public void setCurrentSimulation(Simulation currentSimulation) {
         this.currentSimulation = currentSimulation;
@@ -143,6 +170,10 @@ public class Plane extends Thread{
 
     public int getFuel() {
         return fuel;
+    }
+
+    public PLANE_STATE getPlaneState() {
+        return planeState;
     }
 
     public LandingTrack getCurrentLandingTrack() {

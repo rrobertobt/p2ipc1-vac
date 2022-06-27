@@ -54,6 +54,10 @@ public class DisembarkStation {
         return planesOnDisembarkQueue.length() != maxPlanes;
     }
 
+    public int getId() {
+        return id;
+    }
+    
     public void setCurrentPlane(Plane currentPlane) {
         this.currentPlane = currentPlane;
     }
@@ -61,5 +65,11 @@ public class DisembarkStation {
     public void setCurrentSimulation(Simulation currentSimulation) {
         this.currentSimulation = currentSimulation;
     }
+
+    public DoubleLinkedList<Plane> getPlanesOnDisembarkQueue() {
+        return planesOnDisembarkQueue;
+    }
+    
+    
 }
 

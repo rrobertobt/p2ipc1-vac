@@ -4,15 +4,21 @@
  */
 package com.robertob.p2ipc1.frames;
 
+import com.robertob.p2ipc1.engine.Simulation;
+import com.robertob.p2ipc1.engine.LandingTrack;
+import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author robertob
  */
 public class LandingTracksInternalFrame extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ControlStationInternalFrame
-     */
+    Simulation currentSimulation;
+    
     public LandingTracksInternalFrame() {
         initComponents();
     }
@@ -29,72 +35,147 @@ public class LandingTracksInternalFrame extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        trackPlanesTable = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        landingTrackSelector = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Open Sans", 1, 21)); // NOI18N
         jLabel1.setText("PISTAS DE ATERRIZAJE");
 
-        jTable1.setFont(new java.awt.Font("Noto Serif", 0, 20)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        trackPlanesTable.setFont(new java.awt.Font("Open Sans", 1, 15)); // NOI18N
+        trackPlanesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "ID", "Estado", "Pista", "Torre", "Combustible"
+                "ID Avión", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setRowHeight(50);
-        jTable1.setShowGrid(true);
-        jScrollPane1.setViewportView(jTable1);
+        trackPlanesTable.setRowHeight(50);
+        trackPlanesTable.setShowGrid(true);
+        jScrollPane1.setViewportView(trackPlanesTable);
+
+        jLabel2.setFont(new java.awt.Font("Open Sans", 0, 13)); // NOI18N
+        jLabel2.setText("Ver pista:");
+
+        landingTrackSelector.setFont(new java.awt.Font("Open Sans", 0, 17)); // NOI18N
+        landingTrackSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                landingTrackSelectorActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Open Sans", 1, 10)); // NOI18N
+        jButton1.setText("Actualizar");
+        jButton1.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(61, 61, 61)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(landingTrackSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 68, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator1))))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
+                .addGap(12, 12, 12)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(landingTrackSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void landingTrackSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_landingTrackSelectorActionPerformed
+        try {
+            updateTracksTable();
+        } catch (DoubleLinkedListException ex) {
+            Logger.getLogger(LandingTracksInternalFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_landingTrackSelectorActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        updateTrackSelector();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void updateTracksTable() throws DoubleLinkedListException {
+        DefaultTableModel tracksTableModel = (DefaultTableModel)this.trackPlanesTable.getModel();
+        LandingTrack trackToShow = null;
+        trackToShow = this.currentSimulation.getTrackById(Integer.parseInt((String)this.landingTrackSelector.getSelectedItem()));
+        tracksTableModel.setRowCount(0);
+        for (int i = 0; i < trackToShow.getPlanesOnQueue().length(); i++) {
+            tracksTableModel.addRow(trackToShow.getPlanesOnQueue().get(i).toAlternateTableFormat());
+        }
+    }
+
+    public void updateTrackSelector(){
+        landingTrackSelector.removeAllItems();
+        try {
+            for (int i = 0; i < currentSimulation.getLandingTracks().length(); i++) {
+                landingTrackSelector.addItem(String.valueOf(currentSimulation.getLandingTracks().get(i).getId()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> landingTrackSelector;
+    private javax.swing.JTable trackPlanesTable;
     // End of variables declaration//GEN-END:variables
+
+    public void setCurrentSimulation(Simulation currentSimulation) {
+        this.currentSimulation = currentSimulation;
+    }
+    
 }

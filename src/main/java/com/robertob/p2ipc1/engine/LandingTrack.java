@@ -59,6 +59,7 @@ public class LandingTrack {
     public void freeTrack(){
         currentPlane = null;
     }
+
     
     public DoubleLinkedList<Plane> getPlanesOnQueue() {
         return planesOnQueue;

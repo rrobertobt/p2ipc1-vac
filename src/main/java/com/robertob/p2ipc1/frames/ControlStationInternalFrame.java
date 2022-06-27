@@ -32,7 +32,7 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
 
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        controlStationId = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
@@ -45,16 +45,17 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
         trackIdComboBox = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        assignTrackToPlane = new javax.swing.JButton();
         updateComboBoxes = new javax.swing.JButton();
+        approveLandingToPlane = new javax.swing.JButton();
 
         setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Open Sans", 1, 21)); // NOI18N
         jLabel1.setText("ESTACIÓN DE CONTROL:");
 
-        jLabel2.setFont(new java.awt.Font("Open Sans", 1, 21)); // NOI18N
-        jLabel2.setText("#ID");
+        controlStationId.setFont(new java.awt.Font("Open Sans", 1, 21)); // NOI18N
+        controlStationId.setText("#ID");
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
@@ -85,12 +86,18 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Open Sans", 2, 14)); // NOI18N
         jLabel9.setText("#ID Pista");
 
-        jButton1.setBackground(new java.awt.Color(51, 255, 153));
-        jButton1.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(51, 51, 51));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/robertob/p2ipc1/images/changeBlack.png"))); // NOI18N
-        jButton1.setText("Asignar");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        assignTrackToPlane.setBackground(new java.awt.Color(51, 255, 153));
+        assignTrackToPlane.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
+        assignTrackToPlane.setForeground(new java.awt.Color(51, 51, 51));
+        assignTrackToPlane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/robertob/p2ipc1/images/changeBlack.png"))); // NOI18N
+        assignTrackToPlane.setText("Asignar");
+        assignTrackToPlane.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        assignTrackToPlane.setMargin(new java.awt.Insets(2, 6, 2, 6));
+        assignTrackToPlane.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assignTrackToPlaneActionPerformed(evt);
+            }
+        });
 
         updateComboBoxes.setBackground(new java.awt.Color(255, 204, 204));
         updateComboBoxes.setFont(new java.awt.Font("Open Sans", 1, 13)); // NOI18N
@@ -101,6 +108,19 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
         updateComboBoxes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateComboBoxesActionPerformed(evt);
+            }
+        });
+
+        approveLandingToPlane.setBackground(new java.awt.Color(255, 255, 153));
+        approveLandingToPlane.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
+        approveLandingToPlane.setForeground(new java.awt.Color(51, 51, 51));
+        approveLandingToPlane.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/robertob/p2ipc1/images/landingTrackBlack.png"))); // NOI18N
+        approveLandingToPlane.setText("Aprobar aterrizaje");
+        approveLandingToPlane.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        approveLandingToPlane.setMargin(new java.awt.Insets(2, 6, 2, 6));
+        approveLandingToPlane.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                approveLandingToPlaneActionPerformed(evt);
             }
         });
 
@@ -125,8 +145,9 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(trackIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updateComboBoxes, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(updateComboBoxes, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(approveLandingToPlane, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(assignTrackToPlane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +155,7 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
                         .addGap(183, 183, 183)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2))
+                        .addComponent(controlStationId))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +179,7 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(controlStationId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -189,7 +210,9 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
                             .addComponent(trackIdComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
                         .addGap(26, 26, 26)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(assignTrackToPlane, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(approveLandingToPlane, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
         );
 
@@ -210,7 +233,28 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_updateComboBoxesActionPerformed
 
+    private void assignTrackToPlaneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignTrackToPlaneActionPerformed
+        Plane planeToAssign = null;
+        LandingTrack trackToAssign = null;
+        try {
+            planeToAssign = this.currentSimulation.getPlaneById(Integer.parseInt((String)this.planeIdComboBox.getSelectedItem()));
+            trackToAssign = this.currentSimulation.getTrackById(Integer.parseInt((String)this.trackIdComboBox.getSelectedItem()));
+        } catch (Exception e) {   
+        }
+        this.frameControlStation.planeLandingAssignation(planeToAssign, trackToAssign);
+    }//GEN-LAST:event_assignTrackToPlaneActionPerformed
+
+    private void approveLandingToPlaneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_approveLandingToPlaneActionPerformed
+        Plane planeToApprove = null;
+        try {
+            planeToApprove = this.currentSimulation.getPlaneById(Integer.parseInt((String)this.planeIdComboBox.getSelectedItem()));
+        } catch (Exception e) {
+        }
+        this.frameControlStation.planeLandingApproval(planeToApprove);
+    }//GEN-LAST:event_approveLandingToPlaneActionPerformed
+
     public void updateControlStationFrame() throws DoubleLinkedListException {
+        controlStationId.setText(String.valueOf(this.frameControlStation.getId()));
         // Actualiza cantidad de aviones conectados y maximos
         conectedPlanesLbl.setText(String.valueOf(frameControlStation.getConectedPlanes()));
         maxPlanesLbl.setText(String.valueOf(frameControlStation.getMaxPlanes()));
@@ -218,10 +262,11 @@ public class ControlStationInternalFrame extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton approveLandingToPlane;
+    private javax.swing.JButton assignTrackToPlane;
     private javax.swing.JLabel conectedPlanesLbl;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel controlStationId;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

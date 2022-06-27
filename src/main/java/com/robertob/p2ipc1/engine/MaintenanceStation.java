@@ -55,7 +55,14 @@ public class MaintenanceStation {
     public void setCurrentSimulation(Simulation currentSimulation) {
         this.currentSimulation = currentSimulation;
     }
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public DoubleLinkedList<Plane> getPlanesOnMaintenanceQueue() {
+        return planesOnMaintenanceQueue;
+    }
 }
 
 

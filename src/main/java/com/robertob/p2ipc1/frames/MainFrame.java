@@ -4,7 +4,6 @@ import com.robertob.p2ipc1.engine.Simulation;
 import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
 import com.robertob.p2ipc1.utils.list.DoubleLinkedList;
 import com.robertob.p2ipc1.utils.list.FileHandler;
-import java.awt.BorderLayout;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -169,7 +168,7 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                 .addGap(481, 481, 481)
                 .addComponent(welcomeIFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(709, Short.MAX_VALUE))
+                .addContainerGap(301, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,14 +286,17 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
         this.jDesktopPane1.add(planesInternalFrame);
         planesInternalFrame.setVisible(true);
         this.jDesktopPane1.add(landingTracksInternalFrame);
+        landingTracksInternalFrame.setCurrentSimulation(this.currentSimulation);
         landingTracksInternalFrame.setVisible(true);
         this.jDesktopPane1.add(disembarkingStationsInternalFrame);
+        disembarkingStationsInternalFrame.setCurrentSimulation(this.currentSimulation);
         disembarkingStationsInternalFrame.setVisible(true);
         this.jDesktopPane1.add(maintenanceStationsInternalFrame);
+        maintenanceStationsInternalFrame.setCurrentSimulation(this.currentSimulation);
         maintenanceStationsInternalFrame.setVisible(true);
         
         for (int i = 0; i < this.currentSimulation.getControlStations().length(); i++) {
-            ControlStationInternalFrame controlStationInternalFrame = new ControlStationInternalFrame(this.currentSimulation.getControlStations().get(i), currentSimulation);
+            ControlStationInternalFrame controlStationInternalFrame = new ControlStationInternalFrame(this.currentSimulation.getControlStations().get(i), this.currentSimulation);
             this.controlStationsInternalFrame.add(controlStationInternalFrame);
             ControlStationInternalFrame interframe = this.controlStationsInternalFrame.get(i);
             this.jDesktopPane1.add(interframe);
@@ -311,19 +313,7 @@ public class MainFrame extends javax.swing.JFrame implements Runnable{
         for (int i = 0; i < this.currentSimulation.getPlanes().length(); i++) {
             planeTableModel.addRow(this.currentSimulation.getPlanes().get(i).toTableFormat());   
         }
-        
-        DefaultTableModel disembarkStationTableModel = (DefaultTableModel)this.disembarkingStationsInternalFrame.getDisembarkStationsTable().getModel();
-        disembarkStationTableModel.setRowCount(0);
-        for (int i = 0; i < this.currentSimulation.getDisembarkStations().length(); i++) {
-            disembarkStationTableModel.addRow(this.currentSimulation.getDisembarkStations().get(i).toTableFormat());   
-        }
 
-        DefaultTableModel maintenanceStationTableModel = (DefaultTableModel)this.maintenanceStationsInternalFrame.getMaintenanceStationsTable().getModel();
-        maintenanceStationTableModel.setRowCount(0);
-        for (int i = 0; i < this.currentSimulation.getMaintenanceStations().length(); i++) {
-            maintenanceStationTableModel.addRow(this.currentSimulation.getMaintenanceStations().get(i).toTableFormat());   
-        }
-        
         for (int i = 0; i < this.controlStationsInternalFrame.length(); i++) {  
             controlStationsInternalFrame.get(i).updateControlStationFrame();
         }

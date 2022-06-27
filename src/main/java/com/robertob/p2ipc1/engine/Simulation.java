@@ -59,6 +59,51 @@ public class Simulation {
         }
     }
     
+    public Plane getPlaneById(int id) throws DoubleLinkedListException {
+        Plane plane = null;
+        for (int i = 0; i < this.planes.length(); i++) {
+            if (this.planes.get(i).getPlaneId() == id) {
+                plane = this.planes.get(i);
+                break;
+            }
+            
+        }
+        return plane;
+    }
+    
+    public LandingTrack getTrackById(int id) throws DoubleLinkedListException {
+        LandingTrack landingTrack = null;
+        for (int i = 0; i < this.landingTracks.length(); i++) {
+            if (this.landingTracks.get(i).getId() == id) {
+                landingTrack = this.landingTracks.get(i);
+                break;
+            }
+        }
+        return landingTrack;
+    }
+    
+    public DisembarkStation getDisembarkStationById(int id) throws DoubleLinkedListException {
+        DisembarkStation disembarkStation = null;
+        for (int i = 0; i < this.disembarkStations.length(); i++) {
+            if (this.disembarkStations.get(i).getId() == id) {
+                disembarkStation = this.disembarkStations.get(i);
+                break;
+            }
+        }
+        return disembarkStation;
+    }
+    
+    public MaintenanceStation getMaintenanceStationById(int id) throws DoubleLinkedListException {
+        MaintenanceStation maintenanceStation = null;
+        for (int i = 0; i < this.maintenanceStations.length(); i++) {
+            if (this.maintenanceStations.get(i).getId() == id) {
+                maintenanceStation = this.maintenanceStations.get(i);
+                break;
+            }
+        }
+        return maintenanceStation;
+    }
+    
     public DoubleLinkedList<Plane> getPlanes() {
         return planes;
     }
