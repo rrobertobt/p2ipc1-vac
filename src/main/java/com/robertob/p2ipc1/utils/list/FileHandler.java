@@ -101,7 +101,9 @@ public class FileHandler {
                         while (scanner.hasNext()) {         
                             ControlStation controlStation = new ControlStation(scanner.next().split(","));
                             controlStations.add(controlStation);
+                            
                         }
+                        
                         controlStationsFileName = fileChooser.getSelectedFile().getName();
                         System.out.println("[LOG] control stations length: "+controlStations.length());
                     }
@@ -109,11 +111,15 @@ public class FileHandler {
                     while (scanner.hasNext()) {         
                             ControlStation controlStation = new ControlStation(scanner.next().split(","));
                             controlStations.add(controlStation);
+                            System.out.println("agregando: "+controlStation.getId());
                         }
                     controlStationsFileName = fileChooser.getSelectedFile().getName();
                     System.out.println("[LOG] control stations length: "+controlStations.length());
                 }   
         }
+            for (int i = 0; i < this.controlStations.length(); i++) {
+                System.out.println(this.controlStations.get(i).getId());
+            }
         } catch (Exception e) {
             System.out.println("[LOG] Error: "+e);
             e.printStackTrace();

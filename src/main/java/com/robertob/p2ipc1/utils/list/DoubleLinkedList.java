@@ -77,9 +77,9 @@ public class DoubleLinkedList<T> {
     }
     
     public T get(int index) throws DoubleLinkedListException{
-        return searchIndex(index).getItem();
+        return getNode(index);
     }
-    
+        
     public Node<T> searchIndex(int index) throws DoubleLinkedListException{
         if (index >= size || index < 0) {
             throw new DoubleLinkedListException("Index out of bounds");
@@ -130,14 +130,25 @@ public class DoubleLinkedList<T> {
     public void printList(){
         if (!isEmpty()) {
             Node<T> aux = first;
-            int i = 0;
             
             while (aux != null) {                
                 System.out.print(".[ " + aux.getItem() + " ]");
                 aux = aux.getNext();
-                i++;
             }
         }
+    }
     
+    public T getNode(int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (index == 0) {
+            return first.getItem();
+        }
+        Node<T> before = first;
+        for (int j = 0; j < index - 1; j++) {
+            before = before.getNext();
+        }
+        return before.getNext().getItem();
     }
 }

@@ -59,4 +59,8 @@ public class LandingTrack {
     public DoubleLinkedList<Plane> getPlanesOnQueue() {
         return planesOnQueue;
     }
+
+    public void setCurrentSimulation(Simulation currentSimulation) {
+        this.currentSimulation = currentSimulation;
+    }
 }

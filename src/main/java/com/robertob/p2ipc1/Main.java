@@ -8,6 +8,7 @@ package com.robertob.p2ipc1;
 import com.robertob.p2ipc1.engine.Plane;
 import com.robertob.p2ipc1.frames.MainFrame;
 import com.robertob.p2ipc1.utils.list.DoubleLinkedList;
+import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
@@ -23,12 +24,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Main{
 
-    public static void main(String[] args) throws FileNotFoundException {
-        
-        
-        
-        
-        
+    public static void main(String[] args) throws FileNotFoundException, DoubleLinkedListException {
+  
         System.out.println("[LOG] Iniciando programa");
         new MainFrame().setVisible(true);
         

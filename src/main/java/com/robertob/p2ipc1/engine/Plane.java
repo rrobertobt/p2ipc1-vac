@@ -109,6 +109,10 @@ public class Plane extends Thread{
         this.fuel--;
     
     }
+
+    public void setCurrentSimulation(Simulation currentSimulation) {
+        this.currentSimulation = currentSimulation;
+    }
     
     public int getPlaneId() {
         return planeId;

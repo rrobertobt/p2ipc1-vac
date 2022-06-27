@@ -31,10 +31,15 @@ public class MaintenanceStationsInternalFrame extends javax.swing.JInternalFrame
         jTable1 = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
 
+        setResizable(true);
+        setPreferredSize(new java.awt.Dimension(550, 530));
+
         jLabel1.setFont(new java.awt.Font("Open Sans", 1, 21)); // NOI18N
         jLabel1.setText("ESTACIONES DE MANTENIMIENTO");
 
-        jTable1.setFont(new java.awt.Font("Noto Serif", 0, 20)); // NOI18N
+        jScrollPane1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
+
+        jTable1.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -54,6 +59,8 @@ public class MaintenanceStationsInternalFrame extends javax.swing.JInternalFrame
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setRowHeight(50);
+        jTable1.setShowGrid(true);
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -61,18 +68,15 @@ public class MaintenanceStationsInternalFrame extends javax.swing.JInternalFrame
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(154, 154, 154))
+                .addGap(93, 93, 93))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

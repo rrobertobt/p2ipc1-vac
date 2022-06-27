@@ -51,8 +51,9 @@ public class DisembarkStation {
     public void setCurrentPlane(Plane currentPlane) {
         this.currentPlane = currentPlane;
     }
-    
-    
-    
+
+    public void setCurrentSimulation(Simulation currentSimulation) {
+        this.currentSimulation = currentSimulation;
+    }
 }
 

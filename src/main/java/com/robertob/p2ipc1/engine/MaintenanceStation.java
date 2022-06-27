@@ -44,6 +44,11 @@ public class MaintenanceStation {
             }
         }
     }
+
+    public void setCurrentSimulation(Simulation currentSimulation) {
+        this.currentSimulation = currentSimulation;
+    }
+    
 }
 
 

@@ -1,6 +1,8 @@
 package com.robertob.p2ipc1.frames;
 
 import com.robertob.p2ipc1.engine.Simulation;
+import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
+import com.robertob.p2ipc1.utils.list.DoubleLinkedList;
 import com.robertob.p2ipc1.utils.list.FileHandler;
 import javax.swing.JOptionPane;
 
@@ -8,9 +10,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     String[] confirmationOptions = {"Si","No"};
     FileHandler fileHandler = new FileHandler();
-    LoadFilesDialog loadFilesDialog = new LoadFilesDialog(this, true, this);
+    LoadFilesDialog loadFilesDialog = new LoadFilesDialog(this, false, this);
     Simulation currentSimulation;
     
+    //InternalFrames
+    PlanesInternalFrame planesInternalFrame = new PlanesInternalFrame();
+    LandingTracksInternalFrame landingTracksInternalFrame = new LandingTracksInternalFrame();
+    DisembarkingStationsInternalFrame disembarkingStationsInternalFrame = new DisembarkingStationsInternalFrame();
+    MaintenanceStationsInternalFrame maintenanceStationsInternalFrame = new MaintenanceStationsInternalFrame();
+    DoubleLinkedList<ControlStationInternalFrame> controlStationsInternalFrame = new DoubleLinkedList<>();
     
     /** Creates new form MainFrame */
     public MainFrame() {
@@ -27,7 +35,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jInternalFrame1 = new javax.swing.JInternalFrame();
+        welcomeIFrame = new javax.swing.JInternalFrame();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -35,6 +43,14 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        idTextField = new javax.swing.JTextField();
+        showControlStationByIdBtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -46,7 +62,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jInternalFrame1.setVisible(true);
+        welcomeIFrame.setVisible(true);
 
         jLabel1.setFont(new java.awt.Font("Open Sans", 1, 20)); // NOI18N
         jLabel1.setText("Bienvenid@ al simulador de aereopuerto");
@@ -69,42 +85,48 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
         jLabel7.setText("guardada en el menú \"Simulación\" (Esta función no esta implementada)");
 
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                .addGap(0, 45, Short.MAX_VALUE)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+        jLabel12.setFont(new java.awt.Font("Open Sans", 1, 16)); // NOI18N
+        jLabel12.setText("Es recomendable maximizar la ventana");
+
+        javax.swing.GroupLayout welcomeIFrameLayout = new javax.swing.GroupLayout(welcomeIFrame.getContentPane());
+        welcomeIFrame.getContentPane().setLayout(welcomeIFrameLayout);
+        welcomeIFrameLayout.setHorizontalGroup(
+            welcomeIFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, welcomeIFrameLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(welcomeIFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(welcomeIFrameLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel4))
-                    .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                    .addGroup(welcomeIFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, welcomeIFrameLayout.createSequentialGroup()
                             .addComponent(jLabel3)
                             .addGap(109, 109, 109))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, welcomeIFrameLayout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addGap(71, 71, 71)))))
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+            .addGroup(welcomeIFrameLayout.createSequentialGroup()
                 .addGap(112, 112, 112)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(welcomeIFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, welcomeIFrameLayout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(welcomeIFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, welcomeIFrameLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(118, 118, 118))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, welcomeIFrameLayout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(20, 20, 20))))
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, welcomeIFrameLayout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(151, 151, 151))))
         );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+        welcomeIFrameLayout.setVerticalGroup(
+            welcomeIFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(welcomeIFrameLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -119,26 +141,95 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jDesktopPane1.setLayer(jInternalFrame1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(welcomeIFrame, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(225, 225, 225)
-                .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(408, Short.MAX_VALUE))
+                .addGap(140, 140, 140)
+                .addComponent(welcomeIFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(496, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addGap(84, 84, 84)
+                .addComponent(welcomeIFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(152, Short.MAX_VALUE))
+        );
+
+        jLabel8.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        jLabel8.setText("Mostrar");
+
+        jLabel9.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        jLabel9.setText("estación de");
+
+        jLabel10.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        jLabel10.setText("control con");
+
+        jLabel11.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        jLabel11.setText("ID:");
+
+        idTextField.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
+        idTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        idTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idTextFieldActionPerformed(evt);
+            }
+        });
+
+        showControlStationByIdBtn.setBackground(new java.awt.Color(153, 204, 255));
+        showControlStationByIdBtn.setFont(new java.awt.Font("Open Sans", 1, 15)); // NOI18N
+        showControlStationByIdBtn.setForeground(new java.awt.Color(51, 51, 51));
+        showControlStationByIdBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/robertob/p2ipc1/images/informationIconBlack.png"))); // NOI18N
+        showControlStationByIdBtn.setText(" Mostrar");
+        showControlStationByIdBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        showControlStationByIdBtn.setEnabled(false);
+        showControlStationByIdBtn.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        showControlStationByIdBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showControlStationByIdBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(idTextField)
+                    .addComponent(showControlStationByIdBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(showControlStationByIdBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenuBar1.setFont(new java.awt.Font("Open Sans", 1, 20)); // NOI18N
@@ -202,11 +293,15 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jDesktopPane1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jDesktopPane1)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -226,37 +321,29 @@ public class MainFrame extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         int confirmation = JOptionPane.showOptionDialog(this, "¿Comenzar nueva simulación? Toda la información no guardada se perderá", "Nueva simulación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE,null,confirmationOptions,confirmationOptions[0]);
             if(confirmation == JOptionPane.YES_OPTION){
+                currentSimulation = null;
                 currentSimulation = new Simulation();
                 SetTimesDialog setTimeDialog = new SetTimesDialog(this, true, this);
                 setTimeDialog.setVisible(true);
             }
-        
-        
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
-    // End of variables declaration//GEN-END:variables
+    private void idTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idTextFieldActionPerformed
+
+    private void showControlStationByIdBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showControlStationByIdBtnActionPerformed
+        int idToShow;
+        try {
+            idToShow = Integer.parseInt(idTextField.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Porfavor ingresa un ID valido", "Valor no valido", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_showControlStationByIdBtnActionPerformed
 
     public LoadFilesDialog getLoadFilesDialog() {
         return loadFilesDialog;
@@ -266,9 +353,69 @@ public class MainFrame extends javax.swing.JFrame {
         return currentSimulation;
     }
 
-    public void startSimulation() {
-        this.currentSimulation.startSimulation();
+    public void startSimulation() throws DoubleLinkedListException {
+        this.welcomeIFrame.dispose();
+        this.currentSimulation.prepareSimulation();
+        showInternalFrames();
+        updateInternalFramesData();
+        showControlStationByIdBtn.setEnabled(true);
+        
+//        for (int i = 0; i < this.currentSimulation.getControlStations().length(); i++) {
+//            System.out.println(this.currentSimulation.getControlStations().get(i).getId());
+//        }
+        for (int i = 0; i < this.currentSimulation.getControlStations().length(); i++) {
+            ControlStationInternalFrame controlStationInternalFrame = new ControlStationInternalFrame(this.currentSimulation.getControlStations().get(i));
+            this.controlStationsInternalFrame.add(controlStationInternalFrame);
+            ControlStationInternalFrame interframe = this.controlStationsInternalFrame.get(i);
+            this.jDesktopPane1.add(interframe);
+        }
+        
+        for (int i = 0; i < this.controlStationsInternalFrame.length(); i++) {  
+            this.controlStationsInternalFrame.get(i).setVisible(true);
+        }
+        
     }
 
+    public void showInternalFrames() throws DoubleLinkedListException{
+        this.jDesktopPane1.add(planesInternalFrame);
+        planesInternalFrame.setVisible(true);
+        this.jDesktopPane1.add(landingTracksInternalFrame);
+        landingTracksInternalFrame.setVisible(true);
+        this.jDesktopPane1.add(disembarkingStationsInternalFrame);
+        disembarkingStationsInternalFrame.setVisible(true);
+        this.jDesktopPane1.add(maintenanceStationsInternalFrame);
+        maintenanceStationsInternalFrame.setVisible(true);
+    }
     
+    public void updateInternalFramesData(){
+        System.out.println("TODO");
+    }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField idTextField;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JButton showControlStationByIdBtn;
+    private javax.swing.JInternalFrame welcomeIFrame;
+    // End of variables declaration//GEN-END:variables
 }

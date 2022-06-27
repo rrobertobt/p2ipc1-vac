@@ -4,6 +4,7 @@
  */
 package com.robertob.p2ipc1.frames;
 
+import com.robertob.p2ipc1.utils.list.DoubleLinkedListException;
 import com.robertob.p2ipc1.utils.list.FileHandler;
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -430,12 +431,17 @@ public class LoadFilesDialog extends javax.swing.JDialog {
         if(!fileHandler.allFilesLoad()){
             JOptionPane.showMessageDialog(null, "Parece que no se han cargado correctamente todos los archivos, intente de nuevo", "Archivos no cargados", JOptionPane.ERROR_MESSAGE);
         } else {
-            mainFrame.getCurrentSimulation().setPlanes(fileHandler.getPlanes()); 
-            mainFrame.getCurrentSimulation().setLandingTracks(fileHandler.getLandingTracks());
-            mainFrame.getCurrentSimulation().setControlStations(fileHandler.getControlStations());
-            mainFrame.getCurrentSimulation().setDisembarkStations(fileHandler.getDisembarkStations());
-            mainFrame.getCurrentSimulation().setMaintenanceStations(fileHandler.getMaintenanceStations());
-            mainFrame.startSimulation();
+            try {
+                mainFrame.getCurrentSimulation().setPlanes(fileHandler.getPlanes());
+                mainFrame.getCurrentSimulation().setLandingTracks(fileHandler.getLandingTracks());
+                mainFrame.getCurrentSimulation().setControlStations(fileHandler.getControlStations());
+                mainFrame.getCurrentSimulation().setDisembarkStations(fileHandler.getDisembarkStations());
+                mainFrame.getCurrentSimulation().setMaintenanceStations(fileHandler.getMaintenanceStations());
+                mainFrame.startSimulation();
+                this.dispose();
+            } catch (DoubleLinkedListException ex) {
+                ex.printStackTrace();
+            }
         
         }
     }//GEN-LAST:event_continueBtnActionPerformed

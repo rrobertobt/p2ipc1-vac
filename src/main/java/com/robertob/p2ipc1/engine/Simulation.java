@@ -30,8 +30,26 @@ public class Simulation {
     
     }
     
-    public void startSimulation() {
-        
+    public void prepareSimulation() throws DoubleLinkedListException {
+        setSimulationToElements();
+    }
+    
+    public void setSimulationToElements() throws DoubleLinkedListException {
+        for (int i = 0; i < planes.length(); i++) {
+            planes.get(i).setCurrentSimulation(this);
+        }
+        for (int i = 0; i < landingTracks.length(); i++) {
+            landingTracks.get(i).setCurrentSimulation(this);
+        }
+        for (int i = 0; i < controlStations.length(); i++) {
+            controlStations.get(i).setCurrentSimulation(this);
+        }
+        for (int i = 0; i < disembarkStations.length(); i++) {
+            disembarkStations.get(i).setCurrentSimulation(this);
+        }
+        for (int i = 0; i < maintenanceStations.length(); i++) {
+            maintenanceStations.get(i).setCurrentSimulation(this);
+        }
     }
     
     public DoubleLinkedList<Plane> getPlanes() {

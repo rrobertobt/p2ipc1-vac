@@ -87,4 +87,13 @@ public class ControlStation {
             plane.getCurrentLandingTrack().getPlanesOnQueue().removeAtIndex(0);
         }
     }
+
+    public void setCurrentSimulation(Simulation currentSimulation) {
+        this.currentSimulation = currentSimulation;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
 }
